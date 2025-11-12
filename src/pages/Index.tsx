@@ -25,10 +25,12 @@ const Index = () => {
             <a href="#portfolio" className="text-foreground hover:text-primary transition-colors">Портфолио</a>
             <a href="#contact" className="text-foreground hover:text-primary transition-colors">Контакты</a>
           </div>
-          <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-            <Icon name="Phone" size={18} className="mr-2" />
-            Позвонить
-          </Button>
+          <a href="tel:+79968041246">
+            <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Icon name="Phone" size={18} className="mr-2" />
+              Позвонить
+            </Button>
+          </a>
         </div>
       </nav>
 
@@ -47,10 +49,12 @@ const Index = () => {
                 Профессиональные услуги электрика с опытом работы. Качество, безопасность и современные решения для вашего дома.
               </p>
               <div className="flex gap-4">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  <Icon name="MessageCircle" size={20} className="mr-2" />
-                  Написать в WhatsApp
-                </Button>
+                <a href="https://t.me/+79048543619" target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                    <Icon name="Send" size={20} className="mr-2" />
+                    Написать в Telegram
+                  </Button>
+                </a>
                 <Button size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary/10">
                   <Icon name="PlayCircle" size={20} className="mr-2" />
                   Смотреть работы
@@ -132,10 +136,12 @@ const Index = () => {
                   <div className="text-sm text-muted-foreground">Довольных клиентов</div>
                 </div>
               </div>
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                <Icon name="Phone" size={20} className="mr-2" />
-                Связаться со мной
-              </Button>
+              <a href="tel:+79968041246">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Icon name="Phone" size={20} className="mr-2" />
+                  Связаться со мной
+                </Button>
+              </a>
             </div>
           </div>
         </div>
@@ -244,15 +250,21 @@ const Index = () => {
           </div>
           <p className="text-muted-foreground mb-6">Электромонтажные работы в Пензе</p>
           <div className="flex justify-center gap-4 mb-6">
-            <Button variant="outline" size="icon" className="rounded-full border-primary/50 hover:bg-primary/10">
-              <Icon name="Phone" size={20} />
-            </Button>
-            <Button variant="outline" size="icon" className="rounded-full border-secondary/50 hover:bg-secondary/10">
-              <Icon name="MessageCircle" size={20} />
-            </Button>
-            <Button variant="outline" size="icon" className="rounded-full border-accent/50 hover:bg-accent/10">
-              <Icon name="Mail" size={20} />
-            </Button>
+            <a href="tel:+79968041246">
+              <Button variant="outline" size="icon" className="rounded-full border-primary/50 hover:bg-primary/10">
+                <Icon name="Phone" size={20} />
+              </Button>
+            </a>
+            <a href="https://t.me/+79048543619" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="icon" className="rounded-full border-secondary/50 hover:bg-secondary/10">
+                <Icon name="Send" size={20} />
+              </Button>
+            </a>
+            <a href="tel:+79968041246">
+              <Button variant="outline" size="icon" className="rounded-full border-accent/50 hover:bg-accent/10">
+                <Icon name="Phone" size={20} />
+              </Button>
+            </a>
           </div>
           <p className="text-sm text-muted-foreground">
             © 2024 Иван. Все права защищены.
