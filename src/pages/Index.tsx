@@ -3,14 +3,35 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Icon from "@/components/ui/icon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+interface Video {
+  id: number;
+  title: string;
+  video_url: string;
+  thumbnail_url?: string;
+  description?: string;
+  created_at: string;
+}
 
 const Index = () => {
-  const [videos] = useState([
-    { id: 1, title: "Монтаж электропроводки в квартире", thumbnail: "https://cdn.poehali.dev/projects/0b010be2-bbc3-43a8-8782-602ac109316a/files/4e5e7724-de1b-400f-bfc8-e84675859e4b.jpg" },
-    { id: 2, title: "Установка щитка", thumbnail: "https://cdn.poehali.dev/projects/0b010be2-bbc3-43a8-8782-602ac109316a/files/4e5e7724-de1b-400f-bfc8-e84675859e4b.jpg" },
-    { id: 3, title: "Подключение розеток", thumbnail: "https://cdn.poehali.dev/projects/0b010be2-bbc3-43a8-8782-602ac109316a/files/4e5e7724-de1b-400f-bfc8-e84675859e4b.jpg" },
-  ]);
+  const [videos, setVideos] = useState<Video[]>([]);
+
+  const API_URL = "https://functions.poehali.dev/3cebda78-5034-4ab2-9240-6351e06ce402";
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error("Ошибка загрузки");
+        const data = await response.json();
+        setVideos(data);
+      } catch (error) {
+        console.error("Ошибка загрузки видео:", error);
+      }
+    };
+    fetchVideos();
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -163,26 +184,44 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {videos.map((video) => (
-              <Card key={video.id} className="overflow-hidden group cursor-pointer hover:shadow-xl hover:shadow-primary/10 transition-all border-border hover:border-primary/50">
-                <div className="relative aspect-video">
-                  <img 
-                    src={video.thumbnail} 
-                    alt={video.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center">
-                      <Icon name="Play" size={32} className="text-primary-foreground ml-1" />
+            {videos.length > 0 ? (
+              videos.map((video) => (
+                <Card key={video.id} className="overflow-hidden group cursor-pointer hover:shadow-xl hover:shadow-primary/10 transition-all border-border hover:border-primary/50">
+                  <a href={video.video_url} target="_blank" rel="noopener noreferrer">
+                    <div className="relative aspect-video">
+                      {video.thumbnail_url ? (
+                        <img 
+                          src={video.thumbnail_url} 
+                          alt={video.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-muted flex items-center justify-center">
+                          <Icon name="Video" size={48} className="text-muted-foreground" />
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center">
+                          <Icon name="Play" size={32} className="text-primary-foreground ml-1" />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{video.title}</h3>
-                  <p className="text-muted-foreground">Смотреть видео</p>
-                </div>
-              </Card>
-            ))}
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold mb-2">{video.title}</h3>
+                      {video.description && (
+                        <p className="text-sm text-muted-foreground mb-2 line-clamp-2">{video.description}</p>
+                      )}
+                      <p className="text-muted-foreground">Смотреть видео</p>
+                    </div>
+                  </a>
+                </Card>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <Icon name="Video" size={48} className="mx-auto mb-4 text-muted-foreground" />
+                <p className="text-muted-foreground">Видео пока нет</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
